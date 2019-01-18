@@ -95,6 +95,10 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource{
             refreshControl.beginRefreshing()
 
             loadData()
+            let indexPath = NSIndexPath(row: NSNotFound, section: 0)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: false)
+            
+            
         }
         cell.userId.text = "\(userList[indexPath.row].id)"
         cell.userName.text = userList[indexPath.row].login

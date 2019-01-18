@@ -6,6 +6,7 @@
 //  Copyright © 2019 KimJihun. All rights reserved.
 //
 
+
 import Foundation
 
 typealias Repo = [RepoElement]
@@ -16,10 +17,9 @@ struct RepoElement: Codable {
     let repoPrivate: Bool
     let owner: Owner
     let htmlURL: String
-    let description: String?
+    let description: String
     let fork: Bool
-    let url: String
-    let forksURL: String
+    let url, forksURL: String
     let keysURL, collaboratorsURL: String
     let teamsURL, hooksURL: String
     let issueEventsURL: String
@@ -42,18 +42,18 @@ struct RepoElement: Codable {
     let gitURL, sshURL: String
     let cloneURL: String
     let svnURL: String
-    let homepage: String?
+    let homepage: String
     let size, stargazersCount, watchersCount: Int
-    let language: String?
+    let language: String
     let hasIssues, hasProjects, hasDownloads, hasWiki: Bool
     let hasPages: Bool
     let forksCount: Int
     let mirrorURL: JSONNull?
     let archived: Bool
     let openIssuesCount: Int
-    let license: License?
+    let license: License
     let forks, openIssues, watchers: Int
-    let defaultBranch: DefaultBranch
+    let defaultBranch: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -127,17 +127,10 @@ struct RepoElement: Codable {
     }
 }
 
-enum DefaultBranch: String, Codable {
-    case ghPages = "gh-pages"
-    case master = "master"
-}
-
 struct License: Codable {
-    let key: Key
-    let name: Name
-    let spdxID: SpdxID
-    let url: String?
-    let nodeID: LicenseNodeID
+    let key, name, spdxID: String
+    let url: String
+    let nodeID: String
     
     enum CodingKeys: String, CodingKey {
         case key, name
@@ -147,40 +140,18 @@ struct License: Codable {
     }
 }
 
-enum Key: String, Codable {
-    case mit = "mit"
-    case other = "other"
-}
-
-enum Name: String, Codable {
-    case mitLicense = "MIT License"
-    case other = "Other"
-}
-
-enum LicenseNodeID: String, Codable {
-    case mDc6TGljZW5ZZTA = "MDc6TGljZW5zZTA="
-    case mDc6TGljZW5ZZTEz = "MDc6TGljZW5zZTEz"
-}
-
-enum SpdxID: String, Codable {
-    case mit = "MIT"
-    case noassertion = "NOASSERTION"
-}
-
 struct Owner: Codable {
-    let login: Login
+    let login: String
     let id: Int
-    let nodeID: OwnerNodeID
+    let nodeID: String
     let avatarURL: String
     let gravatarID: String
     let url, htmlURL, followersURL: String
-    let followingURL: FollowingURL
-    let gistsURL: GistsURL
-    let starredURL: StarredURL
+    let followingURL, gistsURL, starredURL: String
     let subscriptionsURL, organizationsURL, reposURL: String
-    let eventsURL: EventsURL
+    let eventsURL: String
     let receivedEventsURL: String
-    let type: TypeEnum
+    let type: String
     let siteAdmin: Bool
     
     enum CodingKeys: String, CodingKey {
@@ -203,32 +174,6 @@ struct Owner: Codable {
         case siteAdmin = "site_admin"
     }
 }
-
-enum EventsURL: String, Codable {
-    case httpsAPIGithubCOMUsersMojomboEventsPrivacy = "https://api.github.com/users/mojombo/events{/privacy}"
-}
-
-enum FollowingURL: String, Codable {
-    case httpsAPIGithubCOMUsersMojomboFollowingOtherUser = "https://api.github.com/users/mojombo/following{/other_user}"
-}
-
-enum GistsURL: String, Codable {
-    case httpsAPIGithubCOMUsersMojomboGistsGistID = "https://api.github.com/users/mojombo/gists{/gist_id}"
-}
-
-enum Login: String, Codable {
-    case mojombo = "mojombo"
-}
-
-enum OwnerNodeID: String, Codable {
-    case mdq6VXNlcjE = "MDQ6VXNlcjE="
-}
-
-enum StarredURL: String, Codable {
-    case httpsAPIGithubCOMUsersMojomboStarredOwnerRepo = "https://api.github.com/users/mojombo/starred{/owner}{/repo}"
-}
-
-
 
 // MARK: Encode/decode helpers
 
